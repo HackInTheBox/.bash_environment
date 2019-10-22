@@ -1,0 +1,82 @@
+#!/bin/bash
+#
+# set_variables.sh
+#
+# SET LOCAL GLOBAL VARIABLES for the hackinthebox software suite
+
+
+# This flag tells scripts that global variables here have been enabled
+export SET_VARIABLES=true
+export HOSTNAME=$(hostname)
+export PLATFORM=$(uname -s)
+
+me=$(users | awk '{ print $1 }')
+    if [ $me == 'root' ] && \
+        [ $HOSTNAME == "bluehat" ] && \
+        [ $PLATFORM == "Linux" ]; then me=yarn
+    fi
+    
+export ME=$me
+
+if [ "$ME" == "root" ]; then
+    homepath=$HOME
+    if [ -d /root ]; then
+        rootpath=/root
+    else
+        rootpath=$HOME
+    fi
+else
+    case $PLATFORM in
+       Linux)
+           homepath="/home/$ME"
+           rootpath='/root'
+           ;;
+       Darwin)
+           homepath="/Users/$ME"
+           rootpath='/var/root'
+           ;;
+       *)
+           homepath=$HOME
+           if [ -d /root ]; then
+              rootpath=/root
+           else
+              rootpath=$HOME
+           fi
+           ;;
+    esac
+fi
+
+
+export HOMEPATH=$homepath
+export ROOTPATH=$rootpath
+
+
+if [ -d $HOMEPATH/local/bin ]; then
+   export PATH=$PATH:$HOMEPATH/local/bin
+fi
+if [ -d $ROOTPATH/local/bin ]; then
+   export PATH=$PATH:$ROOTPATH/local/bin
+fi
+
+
+###########################################\
+#
+# if [ "$SET_VARIABLES" == "true" ]; then
+#     var1=$HOSTNAME
+#     var2=$PLATFORM
+#     var3=$ME
+#     var4=$HOMEPATH
+#     var5=$ROOTPATH
+# else
+#     var1=
+#     var2=
+#     var3=
+#     var4=
+#     var5=
+# fi
+
+
+
+
+
+
