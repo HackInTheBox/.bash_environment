@@ -1,14 +1,21 @@
 #!/bin/bash
+# .bash_variables
 #
-# set_variables.sh
+# SET LOCAL GLOBAL VARIABLES for the hackinthebox bash/shell scripts
+#         VERSION ACER-SWIFT UBUNTU LINUX
+#  _                _    _       _   _          _               
+# | |__   __ _  ___| | _(_)_ __ | |_| |__   ___| |__   _____  __
+# | '_ \ / _` |/ __| |/ / | '_ \| __| '_ \ / _ \ '_ \ / _ \ \/ /
+# | | | | (_| | (__|   <| | | | | |_| | | |  __/ |_) | (_) >  < 
+# |_| |_|\__,_|\___|_|\_\_|_| |_|\__|_| |_|\___|_.__/ \___/_/\_\
 #
-# SET LOCAL GLOBAL VARIABLES for the hackinthebox software suite
-
-
-# This flag tells scripts that global variables here have been enabled
+#	(c) 2019 hackInTheBox@professionalidiot.com
+#
+#
 export SET_VARIABLES=true
 export HOSTNAME=$(hostname)
 export PLATFORM=$(uname -s)
+
 
 me=$(users | awk '{ print $1 }')
     if [ $me == 'root' ] && \
@@ -46,11 +53,13 @@ else
     esac
 fi
 
-
 export HOMEPATH=$homepath
 export ROOTPATH=$rootpath
-
-
+if [ -f $HOMEPATH/.bash_files ]; then
+   export BASH_DOC_LIST=$HOMEPATH/.bash_files
+else
+   export BASH_DOC_LIST=''
+fi
 if [ -d $HOMEPATH/local/bin ]; then
    export PATH=$PATH:$HOMEPATH/local/bin
 fi
