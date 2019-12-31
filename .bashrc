@@ -35,6 +35,8 @@ esac
 HISTSIZE=9999
 HISTFILESIZE=9999
 HISTCONTROL=ignoreboth
+# append history without exiting
+history -a
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
